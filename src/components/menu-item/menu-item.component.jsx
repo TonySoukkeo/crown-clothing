@@ -8,7 +8,6 @@ import {
   TitleContainer,
   SubTitleContainer,
 } from "./menu-item.styles.jsx";
-// import "./menu-item.styles.scss";
 
 const menuItem = ({ title, imageUrl, size, history, linkUrl, match }) => {
   return (
@@ -17,11 +16,10 @@ const menuItem = ({ title, imageUrl, size, history, linkUrl, match }) => {
       onClick={() => history.push(`${match.url}${linkUrl}`)}
     >
       <BackgroundImageContainer
-        style={{
-          backgroundImage: `url(${imageUrl})`,
-        }}
+        className="background-image"
+        imageUrl={imageUrl}
       >
-        <ContentContainer>
+        <ContentContainer className="content">
           <TitleContainer>{title.toUpperCase()}</TitleContainer>
           <SubTitleContainer>SHOP NOW</SubTitleContainer>
         </ContentContainer>

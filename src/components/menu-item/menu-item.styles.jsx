@@ -1,20 +1,9 @@
-import styled, { css } from "styled-components";
-
-const largeMenuSize = css`
-  height: 380px;
-`;
-
-const backgroundImageHoverStyles = css`
-  transform: scale(1.1);
-  transition: transform 6s;
-  cubic-bezier(0.25, 0.45, 0.45, 0.95);
-`;
-
-const getMenuItemSize = ({ size }) => (size === "Large" ? largeMenuSize : null);
+import styled from "styled-components";
 
 export const BackgroundImageContainer = styled.div`
   width: 100%;
   height: 100%;
+  background-image: ${({ imageUrl }) => `url(${imageUrl})`};
   background-size: cover;
   background-position: center;
   position: relative;
@@ -22,7 +11,7 @@ export const BackgroundImageContainer = styled.div`
 
 export const MenuItemContainer = styled.div`
   min-width: 30%;
-  height: 240px;
+  height: ${({ size }) => (size ? "380px" : "240px")};
   flex: 1 1 auto;
   display: flex;
   align-items: center;
@@ -34,7 +23,15 @@ export const MenuItemContainer = styled.div`
   &:hover {
     cursor: pointer;
 
-    ${backgroundImageHoverStyles}
+    & .background-image {
+      transform: scale(1.1);
+
+      transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+    }
+
+    & .content {
+      opacity: 0.9;
+    }
   }
 
   &:first-child {
@@ -44,8 +41,6 @@ export const MenuItemContainer = styled.div`
   &:last-child {
     margin-left: 7.5px;
   }
-
-  ${getMenuItemSize}
 `;
 
 export const ContentContainer = styled.div`
