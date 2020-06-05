@@ -1,10 +1,16 @@
 import styled, { css } from "styled-components";
 
+const largeMenuSize = css`
+  height: 380px;
+`;
+
 const backgroundImageHoverStyles = css`
   transform: scale(1.1);
   transition: transform 6s;
   cubic-bezier(0.25, 0.45, 0.45, 0.95);
 `;
+
+const getMenuItemSize = ({ size }) => (size === "Large" ? largeMenuSize : null);
 
 export const BackgroundImageContainer = styled.div`
   width: 100%;
@@ -38,6 +44,8 @@ export const MenuItemContainer = styled.div`
   &:last-child {
     margin-left: 7.5px;
   }
+
+  ${getMenuItemSize}
 `;
 
 export const ContentContainer = styled.div`
