@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const SignUpContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 55%;
+  width: 380px;
 `;
 
-export const TitleContainer = styled.h2`
+export const SignUpTitle = styled.h2`
   margin: 10px 0;
 `;

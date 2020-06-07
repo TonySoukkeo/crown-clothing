@@ -1,22 +1,22 @@
-import React from "react";
+import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
-import { connect } from "react-redux";
-import CheckoutItem from "../../components/checkout-item/checkout-item.component";
-import StripeCheckOutButton from "../../components/stripe-button/stripe-button.component";
-
-import { createStructuredSelector } from "reselect";
+import StripeCheckoutButton from '../../components/stripe-button/stripe-button.component';
+import CheckoutItem from '../../components/checkout-item/checkout-item.component';
 
 import {
   selectCartItems,
-  selectCartTotal,
-} from "../../redux/cart/cart.selectors";
+  selectCartTotal
+} from '../../redux/cart/cart.selectors';
 
 import {
-  CheckoutHeaderContainer,
   CheckoutPageContainer,
+  CheckoutHeaderContainer,
   HeaderBlockContainer,
   TotalContainer,
-} from "./checkout.styles.jsx";
+  WarningContainer
+} from './checkout.styles';
 
 const CheckoutPage = ({ cartItems, total }) => (
   <CheckoutPageContainer>
@@ -24,37 +24,35 @@ const CheckoutPage = ({ cartItems, total }) => (
       <HeaderBlockContainer>
         <span>Product</span>
       </HeaderBlockContainer>
-
       <HeaderBlockContainer>
         <span>Description</span>
       </HeaderBlockContainer>
-
       <HeaderBlockContainer>
         <span>Quantity</span>
       </HeaderBlockContainer>
-
       <HeaderBlockContainer>
         <span>Price</span>
       </HeaderBlockContainer>
-
       <HeaderBlockContainer>
         <span>Remove</span>
       </HeaderBlockContainer>
     </CheckoutHeaderContainer>
-    {cartItems.map((cartItem) => (
+    {cartItems.map(cartItem => (
       <CheckoutItem key={cartItem.id} cartItem={cartItem} />
     ))}
-
-    <TotalContainer>
-      <span>TOTAL: ${total}</span>
-    </TotalContainer>
-    <StripeCheckOutButton price={total} />
+    <TotalContainer>TOTAL: ${total}</TotalContainer>
+    <WarningContainer>
+      *Please use the following test credit card for payments*
+      <br />
+      4242 4242 4242 4242 - Exp: 01/20 - CVV: 123
+    </WarningContainer>
+    <StripeCheckoutButton price={total} />
   </CheckoutPageContainer>
 );
 
 const mapStateToProps = createStructuredSelector({
   cartItems: selectCartItems,
-  total: selectCartTotal,
+  total: selectCartTotal
 });
 
 export default connect(mapStateToProps)(CheckoutPage);
