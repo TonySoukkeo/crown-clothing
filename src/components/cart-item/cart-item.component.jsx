@@ -18,4 +18,5 @@ const CartItem = ({ item: { imageUrl, price, name, quantity } }) => (
   </CartItemContainer>
 );
 
+
 export default CartItem;
