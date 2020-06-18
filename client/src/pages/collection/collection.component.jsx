@@ -1,6 +1,6 @@
 import React from "react";
 
-import CollectionItem from "../../components/collection-item/collection-item.component";
+import { default as CollectionItem } from "../../components/collection-item/collection-item.container";
 
 import {
   CollectionPageContainer,
@@ -8,14 +8,15 @@ import {
   CollectionItemsContainer,
 } from "./collection.styles.jsx";
 
-const CollectionPage = ({ collection, addItem }) => {
+const CollectionPage = ({ collection }) => {
   const { title, items } = collection;
+
   return (
     <CollectionPageContainer>
       <CollectionTitle>{title}</CollectionTitle>
       <CollectionItemsContainer>
         {items.map((item) => (
-          <CollectionItem key={item.id} item={item} addItem={addItem} />
+          <CollectionItem key={item.id} item={item} />
         ))}
       </CollectionItemsContainer>
     </CollectionPageContainer>

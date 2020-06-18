@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 import {
   CollectionItemContainer,
@@ -6,15 +6,15 @@ import {
   AddButton,
   BackgroundImage,
   NameContainer,
-  PriceContainer
-} from './collection-styles.styles';
+  PriceContainer,
+} from "./collection-item.styles";
 
 const CollectionItem = ({ item, addItem }) => {
   const { name, price, imageUrl } = item;
 
   return (
     <CollectionItemContainer>
-      <BackgroundImage className='image' imageUrl={imageUrl} />
+      <BackgroundImage className="image" imageUrl={imageUrl} />
       <CollectionFooterContainer>
         <NameContainer>{name}</NameContainer>
         <PriceContainer>{price}</PriceContainer>
@@ -25,7 +25,5 @@ const CollectionItem = ({ item, addItem }) => {
     </CollectionItemContainer>
   );
 };
-
-
 
 export default CollectionItem;
