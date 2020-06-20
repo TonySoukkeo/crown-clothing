@@ -1,6 +1,7 @@
 import { takeLatest, put, all, call } from "redux-saga/effects";
 
 import UserActionTypes from "./user.types";
+import { updateCartSuccess } from "../cart/cart.actions";
 
 import {
   signInFailure,
@@ -17,6 +18,7 @@ import {
   createUserProfileDocument,
   getCurrentUser,
 } from "../../firebase/firebase.utils";
+import { getCartItems } from "../cart/cart.utils";
 
 export function* getSnapshotFromUserAuth(userAuth, additionalData) {
   try {
@@ -59,6 +61,10 @@ export function* isUserAuthenticated() {
     const userAuth = yield getCurrentUser();
     if (!userAuth) return;
 
+    // Get user cart
+    const cartItems = yield getCartItems(userAuth.uid);
+
+    yield put(updateCartSuccess(cartItems));
     yield getSnapshotFromUserAuth(userAuth);
   } catch (error) {
     yield put(signInFailure(error.message));

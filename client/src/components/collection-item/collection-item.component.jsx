@@ -9,7 +9,7 @@ import {
   PriceContainer,
 } from "./collection-item.styles";
 
-const CollectionItem = ({ item, addItem }) => {
+const CollectionItem = ({ item, updateCart, currentUser }) => {
   const { name, price, imageUrl } = item;
 
   return (
@@ -19,7 +19,10 @@ const CollectionItem = ({ item, addItem }) => {
         <NameContainer>{name}</NameContainer>
         <PriceContainer>{price}</PriceContainer>
       </CollectionFooterContainer>
-      <AddButton onClick={() => addItem(item)} inverted>
+      <AddButton
+        onClick={() => updateCart(currentUser, { item, type: "add" })}
+        inverted
+      >
         Add to cart
       </AddButton>
     </CollectionItemContainer>

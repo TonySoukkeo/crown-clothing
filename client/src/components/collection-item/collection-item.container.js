@@ -1,14 +1,21 @@
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
-import { addItem } from "../../redux/cart/cart.actions";
+import { updateCartStart } from "../../redux/cart/cart.actions";
 import CollectionItem from "./collection-item.component";
+import { selectCurrentUser } from "../../redux/user/user.selectors";
+
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+});
 
 const mapDispatchToProps = (dispatch) => ({
-  addItem: (item) => dispatch(addItem(item)),
+  updateCart: (currentUser, transaction) =>
+    dispatch(updateCartStart({ currentUser, ...transaction })),
 });
 
 const CollectionItemContainer = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(CollectionItem);
 
