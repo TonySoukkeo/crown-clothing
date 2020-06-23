@@ -9,45 +9,55 @@ configure({
 
 import CartItem from "./cart-item.component";
 
-let wrapper;
+describe("CartItem component", () => {
+  let wrapper;
+  let mockItem;
 
-beforeEach(() => {
-  wrapper = shallow(<CartItem item={mockCartItem} />);
-});
+  beforeEach(() => {
+    mockItem = {
+      imageUrl: "www.image.com",
+      price: 35,
+      name: "blue hat",
+      quantity: 3,
+    };
 
-it("renders cart-item component without crashing", () => {
-  expect.assertions(1);
-  expect(wrapper).toMatchSnapshot();
-});
+    const mockProps = {
+      item: mockItem,
+    };
 
-describe("checks if cart-item component renders all information correctly", () => {
-  it("chekcs if cart-item renders item quantity correctly", () => {
-    const qtyDisplay = wrapper.find("#qty");
-
-    expect.assertions(1);
-
-    expect(+qtyDisplay.text()).toEqual(mockCartItem.quantity);
+    wrapper = shallow(<CartItem {...mockProps} />);
   });
 
-  it("checks if cart-item renders item name correctly", () => {
-    const nameDisplay = wrapper.find("#name");
-
+  it("renders CartItem without crashing", () => {
     expect.assertions(1);
-    expect(nameDisplay.text()).toEqual(mockCartItem.name);
+    expect(wrapper).toMatchSnapshot();
   });
 
-  it("checks if cart-item renders item price correctly", () => {
-    const priceDisplay = wrapper.find("#price");
+  it("has imageUrl as a src attribute", () => {
+    const cartItemImageSrc = wrapper.find("CartItemImage").prop("src");
 
     expect.assertions(1);
-    expect(+priceDisplay.text()).toEqual(mockCartItem.price);
+    expect(cartItemImageSrc).toEqual(mockItem.imageUrl);
   });
 
-  it("checks if cart-item has src prop", () => {
-    const cartImage = wrapper.find("CartItemImage");
+  it("renders out item name", () => {
+    const itemName = wrapper.find("#name").text();
 
-    expect.assertions(2);
-    expect(cartImage.prop("src")).not.toBe(undefined);
-    expect(cartImage.prop("src")).toEqual(mockCartItem.imageUrl);
+    expect.assertions(1);
+    expect(itemName).toEqual(mockItem.name);
+  });
+
+  it("renders out item price correctly", () => {
+    const itemPrice = +wrapper.find("#price").text();
+
+    expect.assertions(1);
+    expect(itemPrice).toEqual(mockItem.price);
+  });
+
+  it("renders out item quantity correctly", () => {
+    const itemQty = +wrapper.find("#qty").text();
+
+    expect.assertions(1);
+    expect(itemQty).toEqual(mockItem.quantity);
   });
 });

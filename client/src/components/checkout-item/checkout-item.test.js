@@ -1,50 +1,107 @@
 import React from "react";
 import { shallow, configure } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { mockCartItem } from "../../redux/mockStore";
 
 configure({ adapter: new Adapter() });
 
 import CheckoutItem from "./checkout-item.component";
 
-let wrapper;
+describe("CartIcon component", () => {
+  let wrapper;
+  let mockCartItem;
+  let mockUpdateCart;
+  let mockCurrentUser;
 
-beforeEach(() => {
-  wrapper = shallow(<CheckoutItem cartItem={mockCartItem} />);
-});
+  beforeEach(() => {
+    mockCartItem = {
+      imageUrl: "www.image1.com",
+      name: "Red Jacket",
+      price: 32.95,
+      quantity: 4,
+    };
 
-it("checks if CheckoutItem renders without crashing", () => {
-  expect.assertions(1);
-  expect(wrapper).toMatchSnapshot();
-});
+    mockUpdateCart = jest.fn();
+    mockCurrentUser = {
+      name: "Jerry",
+      id: 2,
+      email: "jerry@gmail.com",
+    };
 
-describe("checks to see if it renders all cartItem values correctly", () => {
-  // test some stuff
-  it("checks if ImageContainer has an img children", () => {
-    const imageContainer = wrapper.find("ImageContainer");
-    const imageChildren = imageContainer.children().html();
+    const mockProps = {
+      cartItem: mockCartItem,
+      updateCart: mockUpdateCart,
+      currentUser: mockCurrentUser,
+    };
 
-    const imageDiv = `<img id="image" src="${mockCartItem.imageUrl}" alt="item"/>`;
+    wrapper = shallow(<CheckoutItem {...mockProps} />);
+  });
+
+  it("renders CheckoutItem without crashing", () => {
+    expect.assertions(1);
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it("has correct src tags for images", () => {
+    const imageSrc = wrapper.find("#image").prop("src");
+
+    expect.assertions(1);
+    expect(imageSrc).toBe(mockCartItem.imageUrl);
+  });
+
+  it("calls update cart correctly when removing an item", () => {
+    wrapper.find("#remove-item").simulate("click");
+
+    const removeItemPayload = {
+      item: mockCartItem,
+      type: "remove",
+    };
 
     expect.assertions(2);
 
-    expect(imageChildren).not.toBe(undefined);
-    expect(imageChildren).toEqual(imageDiv);
+    expect(mockUpdateCart).toHaveBeenCalled();
+    expect(mockUpdateCart).toHaveBeenCalledWith(
+      mockCurrentUser,
+      removeItemPayload
+    );
   });
 
-  it("checks if name is being rendered correctly", () => {
-    const textContainer = wrapper.find("#item-name");
+  it("calls update cart correctly when adding an item", () => {
+    wrapper.find("#add-item").simulate("click");
 
-    expect.assertions(1);
+    const addItemPayload = {
+      item: mockCartItem,
+      type: "add",
+    };
 
-    expect(textContainer.text()).toBe(mockCartItem.name);
+    expect.assertions(2);
+
+    expect(mockUpdateCart).toHaveBeenCalled();
+    expect(mockUpdateCart).toHaveBeenCalledWith(
+      mockCurrentUser,
+      addItemPayload
+    );
   });
 
-  it("checks if price is being rendered correctly", () => {
-    const priceContainer = wrapper.find("#price");
+  it("renders out item quantity", () => {
+    const itemQty = +wrapper.find("#qty").text();
 
     expect.assertions(1);
+    expect(itemQty).toBe(mockCartItem.quantity);
+  });
 
-    expect(+priceContainer.text()).toBe(mockCartItem.price);
+  it("calls udpate cart when removing an item", () => {
+    wrapper.find("RemoveButtonContainer").simulate("click");
+
+    const removeItemPayload = {
+      item: mockCartItem,
+      type: "clear-item",
+    };
+
+    expect.assertions(2);
+    expect(mockUpdateCart).toHaveBeenCalled();
+    expect(mockUpdateCart).toHaveBeenCalledWith(
+      mockCurrentUser,
+      removeItemPayload
+    );
   });
 });

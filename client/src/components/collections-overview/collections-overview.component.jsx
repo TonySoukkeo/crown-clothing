@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import CollectionPreview from '../collection-preview/collection-preview.component';
+import { default as CollectionPreview } from "../collection-preview/collection-preview.container";
 
-import { CollectionsOverviewContainer } from './collections-overview.styles';
+import { CollectionsOverviewContainer } from "./collections-overview.styles";
 
 const CollectionsOverview = ({ collections }) => (
   <CollectionsOverviewContainer>
@@ -11,6 +11,5 @@ const CollectionsOverview = ({ collections }) => (
     ))}
   </CollectionsOverviewContainer>
 );
-
 
 export default CollectionsOverview;

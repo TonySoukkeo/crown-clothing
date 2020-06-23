@@ -1,21 +1,21 @@
-import React from 'react';
+import React from "react";
 
-import CartItem from '../cart-item/cart-item.component';
+import CartItem from "../cart-item/cart-item.component";
 
-import { toggleCartHidden } from '../../redux/cart/cart.actions.js';
+import { toggleCartHidden } from "../../redux/cart/cart.actions.js";
 
 import {
   CartDropdownContainer,
   CartDropdownButton,
   EmptyMessageContainer,
-  CartItemsContainer
-} from './cart-dropdown.styles';
+  CartItemsContainer,
+} from "./cart-dropdown.styles";
 
 const CartDropdown = ({ cartItems, history, dispatch }) => (
   <CartDropdownContainer>
     <CartItemsContainer>
       {cartItems.length ? (
-        cartItems.map(cartItem => (
+        cartItems.map((cartItem) => (
           <CartItem key={cartItem.id} item={cartItem} />
         ))
       ) : (
@@ -24,7 +24,7 @@ const CartDropdown = ({ cartItems, history, dispatch }) => (
     </CartItemsContainer>
     <CartDropdownButton
       onClick={() => {
-        history.push('/checkout');
+        history.push("/checkout");
         dispatch(toggleCartHidden());
       }}
     >
@@ -33,5 +33,4 @@ const CartDropdown = ({ cartItems, history, dispatch }) => (
   </CartDropdownContainer>
 );
 
-
-export default CartDropdown
+export default CartDropdown;

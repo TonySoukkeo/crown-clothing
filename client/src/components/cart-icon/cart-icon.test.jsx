@@ -8,13 +8,38 @@ configure({
   adapter: new Adapter(),
 });
 
-let wrapper;
+describe("CartIcon component", () => {
+  let wrapper;
+  let mockToggleCartHidden;
+  const mockItemCount = 5;
 
-beforeEach(() => {
-  wrapper = shallow(<CartIcon />);
-});
+  beforeEach(() => {
+    mockToggleCartHidden = jest.fn();
 
-it("renders cart-icon component without crashing", () => {
-  expect.assertions(1);
-  expect(wrapper).toMatchSnapshot();
+    const mockProps = {
+      toggleCartHidden: mockToggleCartHidden,
+      itemCount: mockItemCount,
+    };
+
+    wrapper = shallow(<CartIcon {...mockProps} />);
+  });
+
+  it("renders CartIcon without crashing", () => {
+    expect.assertions(1);
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it("calls toggleCartHidden when clicked", () => {
+    wrapper.find("CartContainer").simulate("click");
+
+    expect.assertions(1);
+    expect(mockToggleCartHidden).toHaveBeenCalled();
+  });
+
+  it("should render itemCount as text correctly", () => {
+    const itemCount = +wrapper.find("ItemCountContainer").text();
+
+    expect.assertions(1);
+    expect(itemCount).toBe(mockItemCount);
+  });
 });
