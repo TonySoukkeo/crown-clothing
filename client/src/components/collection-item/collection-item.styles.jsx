@@ -71,7 +71,11 @@ export const NameContainer = styled.span`
   margin-bottom: 15px;
 `;
 
+NameContainer.displayName = "NameContainer";
+
 export const PriceContainer = styled.span`
   width: 10%;
   text-align: right;
 `;
+
+PriceContainer.displayName = "PriceContainer";
