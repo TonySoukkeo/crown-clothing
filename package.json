@@ -1,5 +1,10 @@
 {
   "name": "crwn-clothing-server",
+  "jest": {
+    "setupFilesAfterEnv": [
+      "<rootDir>client/src/setupTests.js"
+    ]
+  },
   "version": "1.0.0",
   "engines": {
     "node": "12.18.0",
@@ -11,7 +16,8 @@
     "build": "cd client && npm run build",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "start": "node server.js",
-    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
+    "test": "cd client && npm test"
   },
   "dependencies": {
     "body-parser": "^1.18.3",

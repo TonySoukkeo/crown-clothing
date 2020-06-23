@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const CheckoutItemContainer = styled.div`
   width: 100%;
@@ -20,6 +20,8 @@ export const ImageContainer = styled.div`
   }
 `;
 
+ImageContainer.displayName = "ImageContainer";
+
 export const TextContainer = styled.span`
   width: 23%;
 `;
@@ -35,6 +37,8 @@ export const QuantityContainer = styled(TextContainer)`
     cursor: pointer;
   }
 `;
+
+TextContainer.displayName = "TextContainer";
 
 export const RemoveButtonContainer = styled.div`
   padding-left: 12px;

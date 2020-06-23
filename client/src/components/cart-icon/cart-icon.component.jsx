@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
 import {
   CartContainer,
   ShoppingIcon,
-  ItemCountContainer
-} from './cart-icon.styles';
+  ItemCountContainer,
+} from "./cart-icon.styles";
 
 const CartIcon = ({ toggleCartHidden, itemCount }) => (
   <CartContainer onClick={toggleCartHidden}>
@@ -13,4 +13,4 @@ const CartIcon = ({ toggleCartHidden, itemCount }) => (
   </CartContainer>
 );
 
-export default CartIcon
+export default CartIcon;

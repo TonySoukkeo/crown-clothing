@@ -13,9 +13,9 @@ const CheckoutItem = ({ cartItem, updateCart, currentUser }) => {
   return (
     <CheckoutItemContainer>
       <ImageContainer>
-        <img src={imageUrl} alt="item" />
+        <img id="image" src={imageUrl} alt="item" />
       </ImageContainer>
-      <TextContainer>{name}</TextContainer>
+      <TextContainer id="item-name">{name}</TextContainer>
       <QuantityContainer>
         <div
           onClick={() =>

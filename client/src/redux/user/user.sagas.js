@@ -20,6 +20,13 @@ import {
 } from "../../firebase/firebase.utils";
 import { getCartItems } from "../cart/cart.utils";
 
+function* getUserCart(userAuth) {
+  // Get user cart
+  const cartItems = yield getCartItems(userAuth.uid);
+
+  yield put(updateCartSuccess(cartItems));
+}
+
 export function* getSnapshotFromUserAuth(userAuth, additionalData) {
   try {
     const userRef = yield call(
@@ -31,6 +38,9 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
     const userSnapshot = yield userRef.get();
 
     yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }));
+
+    // Check and get cart for logged in user
+    yield getUserCart(userAuth);
   } catch (error) {
     console.log("there was an error");
     yield put(signInFailure(error.message));
@@ -61,10 +71,6 @@ export function* isUserAuthenticated() {
     const userAuth = yield getCurrentUser();
     if (!userAuth) return;
 
-    // Get user cart
-    const cartItems = yield getCartItems(userAuth.uid);
-
-    yield put(updateCartSuccess(cartItems));
     yield getSnapshotFromUserAuth(userAuth);
   } catch (error) {
     yield put(signInFailure(error.message));
