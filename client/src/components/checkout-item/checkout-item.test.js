@@ -39,4 +39,12 @@ describe("checks to see if it renders all cartItem values correctly", () => {
 
     expect(textContainer.text()).toBe(mockCartItem.name);
   });
+
+  it("checks if price is being rendered correctly", () => {
+    const priceContainer = wrapper.find("#price");
+
+    expect.assertions(1);
+
+    expect(+priceContainer.text()).toBe(mockCartItem.price);
+  });
 });
