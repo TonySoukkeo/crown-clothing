@@ -38,6 +38,8 @@ export const QuantityContainer = styled(TextContainer)`
   }
 `;
 
+QuantityContainer.displayName = "QuantityContainer";
+
 TextContainer.displayName = "TextContainer";
 
 export const RemoveButtonContainer = styled.div`

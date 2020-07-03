@@ -49,7 +49,7 @@ describe("CartIcon component", () => {
   });
 
   it("calls update cart correctly when removing an item", () => {
-    wrapper.find("#remove-item").simulate("click");
+    wrapper.find("QuantityContainer").childAt(0).simulate("click");
 
     const removeItemPayload = {
       item: mockCartItem,
@@ -66,7 +66,7 @@ describe("CartIcon component", () => {
   });
 
   it("calls update cart correctly when adding an item", () => {
-    wrapper.find("#add-item").simulate("click");
+    wrapper.find("QuantityContainer").childAt(2).simulate("click");
 
     const addItemPayload = {
       item: mockCartItem,
@@ -83,7 +83,7 @@ describe("CartIcon component", () => {
   });
 
   it("renders out item quantity", () => {
-    const itemQty = +wrapper.find("#qty").text();
+    const itemQty = +wrapper.find("QuantityContainer").childAt(1).text();
 
     expect.assertions(1);
     expect(itemQty).toBe(mockCartItem.quantity);
@@ -103,5 +103,19 @@ describe("CartIcon component", () => {
       mockCurrentUser,
       removeItemPayload
     );
+  });
+
+  it("renders out item price", () => {
+    const itemPrice = +wrapper.find("#price").text();
+
+    expect.assertions(1);
+    expect(itemPrice).toBe(mockCartItem.price);
+  });
+
+  it("renders out item name", () => {
+    const itemName = wrapper.find("#item-name").text();
+
+    expect.assertions(1);
+    expect(itemName).toBe(mockCartItem.name);
   });
 });

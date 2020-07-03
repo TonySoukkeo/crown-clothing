@@ -1,6 +1,6 @@
 import CartActionTypes from "./cart.types";
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   hidden: true,
   cartItems: [],
   error: null,

@@ -8,42 +8,74 @@ configure({
 
 import CollectionItem from "./collection-item.component";
 
-let wrapper;
-const item = {
-  name: "Brown hat",
-  price: 25.36,
-  imageUrl: "https://someimage.com",
-};
+describe("collection item component", () => {
+  let wrapper;
+  let mockItem;
+  let mockUpdateCart;
+  let mockCurrentUser;
 
-beforeEach(() => {
-  wrapper = shallow(<CollectionItem item={item} />);
-});
+  beforeEach(() => {
+    mockItem = {
+      name: "blue jeans",
+      price: 59.99,
+      imageUrl: "bluejeans.com",
+    };
 
-it("renders colelction-item without crashing", () => {
-  expect.assertions(1);
-  expect(wrapper).toMatchSnapshot();
-});
+    mockCurrentUser = {
+      name: "Jim",
+      email: "jim@gmail.com",
+    };
 
-describe("Checks if CollectionItem renders correctly", () => {
-  it("has correct imageUrl for backgroundImage", () => {
-    const backgroundImage = wrapper.find(".image");
+    mockUpdateCart = jest.fn();
 
-    expect.assertions(1);
+    const mockProps = {
+      item: mockItem,
+      updateCart: mockUpdateCart,
+      currentUser: mockCurrentUser,
+    };
 
-    expect(backgroundImage.props("imageUrl").imageUrl).toBe(item.imageUrl);
+    wrapper = shallow(<CollectionItem {...mockProps} />);
   });
 
-  it("renders item name correctly", () => {
-    const itemName = wrapper.find("NameContainer");
-
+  it("renders collection item without crashing", () => {
     expect.assertions(1);
-    expect(itemName.text()).toBe(item.name);
+    expect(wrapper).toMatchSnapshot();
   });
 
-  it("renders item price correctly", () => {
-    const itemPrice = wrapper.find("PriceContainer");
+  it("has the correct imageUrl for BackgroundImage", () => {
+    const backgroundImage = wrapper.find("BackgroundImage").prop("imageUrl");
 
     expect.assertions(1);
-    expect(+itemPrice.text()).toBe(item.price);
+    expect(backgroundImage).toBe(mockItem.imageUrl);
+  });
+
+  it("renders out item name", () => {
+    const itemName = wrapper.find("NameContainer").text();
+
+    expect.assertions(1);
+    expect(itemName).toEqual(mockItem.name);
+  });
+
+  it("renders out item price", () => {
+    const itemPrice = +wrapper.find("PriceContainer").text();
+
+    expect.assertions(1);
+    expect(itemPrice).toEqual(mockItem.price);
+  });
+
+  it("calls updateCart when AddButton is cliked", () => {
+    wrapper.find("AddButton").simulate("click");
+
+    const addItemPayload = {
+      item: mockItem,
+      type: "add",
+    };
+
+    expect.assertions(2);
+    expect(mockUpdateCart).toHaveBeenCalled();
+    expect(mockUpdateCart).toHaveBeenCalledWith(
+      mockCurrentUser,
+      addItemPayload
+    );
   });
 });

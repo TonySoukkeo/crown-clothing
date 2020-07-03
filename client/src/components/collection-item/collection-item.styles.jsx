@@ -49,6 +49,8 @@ export const AddButton = styled(CustomButton)`
   }
 `;
 
+AddButton.displayName = "AddButton";
+
 export const BackgroundImage = styled.div`
   width: 100%;
   height: 95%;
@@ -57,6 +59,8 @@ export const BackgroundImage = styled.div`
   margin-bottom: 5px;
   background-image: ${({ imageUrl }) => `url(${imageUrl})`};
 `;
+
+BackgroundImage.displayName = "BackgroundImage";
 
 export const CollectionFooterContainer = styled.div`
   width: 100%;

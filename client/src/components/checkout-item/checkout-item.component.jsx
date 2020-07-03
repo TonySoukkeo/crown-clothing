@@ -18,16 +18,14 @@ const CheckoutItem = ({ cartItem, updateCart, currentUser }) => {
       <TextContainer id="item-name">{name}</TextContainer>
       <QuantityContainer>
         <div
-          id="remove-item"
           onClick={() =>
             updateCart(currentUser, { item: cartItem, type: "remove" })
           }
         >
           &#10094;
         </div>
-        <span id="qty">{quantity}</span>
+        <span>{quantity}</span>
         <div
-          id="add-item"
           onClick={() =>
             updateCart(currentUser, { item: cartItem, type: "add" })
           }

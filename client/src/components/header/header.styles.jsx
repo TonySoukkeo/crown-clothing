@@ -26,6 +26,8 @@ export const LogoContainer = styled(Link)`
   }
 `;
 
+LogoContainer.displayName = "LogoContainer";
+
 export const OptionsContainer = styled.div`
   width: 50%;
   height: 100%;
@@ -37,6 +39,8 @@ export const OptionsContainer = styled.div`
     width: 80%;
   }
 `;
+
+OptionsContainer.displayName = "OptionsContainer";
 
 export const OptionLink = styled(Link)`
   padding: 10px 15px;

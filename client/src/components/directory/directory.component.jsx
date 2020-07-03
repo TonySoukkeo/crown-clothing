@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import MenuItem from '../menu-item/menu-item.component';
+import { default as MenuItem } from "../menu-item/menu-item.container";
 
-import { DirectoryMenuContainer } from './directory.styles';
+import { DirectoryMenuContainer } from "./directory.styles";
 
 const Directory = ({ sections }) => (
   <DirectoryMenuContainer>
@@ -11,6 +11,5 @@ const Directory = ({ sections }) => (
     ))}
   </DirectoryMenuContainer>
 );
-
 
 export default Directory;

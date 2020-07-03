@@ -6,6 +6,7 @@ import {
   removeItemFromCart,
   clearItemFromCart,
 } from "./cart.utils";
+
 import UserActionTypes from "../user/user.types";
 
 import {
@@ -16,11 +17,11 @@ import {
 import CartActionTypes from "./cart.types";
 import { firestore } from "../../firebase/firebase.utils";
 
-function* clearCartOnSignOut() {
+export function* clearCartOnSignOut() {
   yield put(clearCart());
 }
 
-function* updateCart({ payload: { currentUser, item, type } }) {
+export function* updateCart({ payload: { currentUser, item, type } }) {
   try {
     const userId = currentUser.id;
 
@@ -32,15 +33,15 @@ function* updateCart({ payload: { currentUser, item, type } }) {
 
       switch (type) {
         case "add":
-          updatedCartItems = yield call(addItemToCart, cartItems, item);
+          updatedCartItems = yield call(addItemToCart, [cartItems, item]);
           break;
 
         case "remove":
-          updatedCartItems = yield call(removeItemFromCart, cartItems, item);
+          updatedCartItems = yield call(removeItemFromCart, [cartItems, item]);
           break;
 
         case "clear-item":
-          updatedCartItems = yield call(clearItemFromCart, cartItems, item);
+          updatedCartItems = yield call(clearItemFromCart, [cartItems, item]);
           break;
 
         default:
@@ -60,11 +61,11 @@ function* updateCart({ payload: { currentUser, item, type } }) {
   }
 }
 
-function* onSignOutSuccess() {
+export function* onSignOutSuccess() {
   yield takeLatest(UserActionTypes.SIGN_OUT_SUCCESS, clearCartOnSignOut);
 }
 
-function* onUpdateCart() {
+export function* onUpdateCart() {
   yield takeLatest(CartActionTypes.UPDATE_CART_START, updateCart);
 }
 

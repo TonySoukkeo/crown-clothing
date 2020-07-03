@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const SignInContainer = styled.div`
   width: 380px;
@@ -14,3 +14,5 @@ export const ButtonsBarContainer = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
+ButtonsBarContainer.displayName = "ButtonsBarContainer";
